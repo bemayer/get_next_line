@@ -1,55 +1,62 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bmayer <mayer.benoit@gmail.com>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/11/23 20:55:20 by bmayer            #+#    #+#             */
+/*   Updated: 2020/11/23 21:19:20 by bmayer           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line.h"
 
-size_t	ft_strlen(const char *str)
+unsigned int	ft_strlen(const char *str, int line)
 {
 	int i;
 
 	i = 0;
-	while (str[i] != '\0')
+	while (line && str[i] != '\0' && str[i] != '\n')
+		i++;
+	while (!(line) && str[i] != '\0')
 		i++;
 	return (i);
 }
 
-size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
+void			ft_strlcpy(char *dst, const char *src, unsigned int dstsize)
 {
-	size_t i;
+	unsigned int i;
 
 	i = 0;
-	if (dstsize > 0)
+	while ((src[i]) && (i < dstsize - 1))
 	{
-		while ((src[i]) && (i < dstsize - 1))
-		{
-			dst[i] = src[i];
-			i++;
-		}
-		dst[i] = 0;
-	}
-	while ((src[i]))
-	{
+		dst[i] = src[i];
 		i++;
 	}
-	return (i);
+	dst[i] = 0;
 }
 
-char	*ft_strdup(const char *src)
+char			*ft_strdup(const char *src)
 {
 	char	*dest;
 	int		len;
 
-	len = ft_strlen(src);
+	len = ft_strlen(src, 0);
 	if (!(dest = malloc(sizeof(char) * (len + 1))))
 		return (0);
 	ft_strlcpy(dest, src, len + 1);
 	return (dest);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char			*ft_strjoin(char const *s1, char const *s2)
 {
 	char	*ptr;
 	int		i;
 
 	i = 0;
-	if (!(ptr = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1))))
+	if (!(ptr = malloc(sizeof(char) * (ft_strlen(s1, 0) +
+			ft_strlen(s2, 0) + 1))))
 		return (0);
 	while (*s1)
 		ptr[i++] = *s1++;
@@ -59,7 +66,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (ptr);
 }
 
-char	*ft_strrchr(const char *s, int c)
+char			*ft_strrchr(const char *s, int c)
 {
 	unsigned int	i;
 	const char		*last;
