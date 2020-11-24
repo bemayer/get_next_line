@@ -6,15 +6,15 @@
 /*   By: bmayer <mayer.benoit@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 20:55:20 by bmayer            #+#    #+#             */
-/*   Updated: 2020/11/23 21:19:17 by bmayer           ###   ########.fr       */
+/*   Updated: 2020/11/24 20:27:57 by bmayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 unsigned int	ft_strlen(const char *str, int line)
 {
-	int i;
+	unsigned int i;
 
 	i = 0;
 	while (line && str[i] != '\0' && str[i] != '\n')
@@ -37,12 +37,10 @@ void			ft_strlcpy(char *dst, const char *src, unsigned int dstsize)
 	dst[i] = 0;
 }
 
-char			*ft_strdup(const char *src)
+char			*ft_strdup(const char *src, unsigned int len)
 {
-	char	*dest;
-	int		len;
+	char			*dest;
 
-	len = ft_strlen(src, 0);
 	if (!(dest = malloc(sizeof(char) * (len + 1))))
 		return (0);
 	ft_strlcpy(dest, src, len + 1);
@@ -66,20 +64,16 @@ char			*ft_strjoin(char const *s1, char const *s2)
 	return (ptr);
 }
 
-char			*ft_strrchr(const char *s, int c)
+int				find_lr(const char *s)
 {
 	unsigned int	i;
-	const char		*last;
 
 	i = 0;
-	last = 0;
 	while (s[i])
 	{
-		if (s[i] == c)
-			last = s + i;
+		if (s[i] == '\n')
+			return (1);
 		i++;
 	}
-	if (!c)
-		return ((char *)s + i);
-	return ((char *)last);
+	return (0);
 }
