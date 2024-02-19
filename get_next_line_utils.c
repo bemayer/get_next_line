@@ -12,16 +12,16 @@
 
 #include "get_next_line.h"
 
+// ft_strlen special: si line vaut 1, renvoie le nombre de char jusqu'à la fin de la string ou jusqu'à un retour à la ligne,
+//                    sinon, renvoie le nombre de char jusqu'à la fin de la string
 unsigned int	ft_strlen(const char *str, int line)
 {
 	unsigned int i;
 
 	i = 0;
-	while (line && str[i] != '\0' && str[i] != '\n')
+	while (str[i] && (line || str[i] != '\n'))
 		i++;
-	while (!(line) && str[i] != '\0')
-		i++;
-	return (i);
+	return i;
 }
 
 void			ft_strlcpy(char *dst, const char *src, unsigned int dstsize)

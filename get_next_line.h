@@ -19,6 +19,8 @@
 # define MAX_FD 256
 
 int				get_next_line(int fd, char **line);
+char			*save_line(char **fd_read, char *buffer);
+void			add_buffer(char **fd_read, char *buffer, unsigned int nb_read)
 unsigned int	ft_strlen(const char *str, int line);
 void			ft_strlcpy(char *dst, const char *src, unsigned int dstsize);
 char			*ft_strdup(const char *src, unsigned int len);
